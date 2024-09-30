@@ -1,51 +1,61 @@
+```mermaid
 classDiagram
-    class EMPRESA {
-        int id
-        string nome
-        string CNPJ
+    class Atendimento {
+        Long id
+        String titulo
+        LocalDate data
+        LocalTime horaInicio
+        LocalTime horaFim
+        String descricao
+        StatusAtendimento status
+        Long idTicket
+        Long idConsultor
     }
-    class CLIENTE {
-        int id
-        string nome
-        string email
-        string senha
-        int idEmpresa
+
+    class Ticket {
+        Long id
+        String titulo
+        String descricao
+        StatusTicket status
+        Long idCliente
+        Long idAgendamento
+        Long idTicketExterno
     }
-    class TICKET {
-        int id
-        string titulo
-        string descricao
-        string status
-        int idCliente
-        int idConsultor
-        int idAgendamento
-        int idTicketExterno
-    }
-    class TICKET_EXTERNO {
-        int id
-        string titulo
-        string descricao
-        string status
-    }
-    class CONSULTOR {
-        int id
-        string nome
-        string email
-        string senha
+
+    class Consultor {
+        Long id
+        String nome
+        String email
+        String senha
         boolean externo
-        float custoHora
+        Double custoHora
+        Long idAtendimento
     }
-    class ATENDIMENTO {
-        int id
-        date data
-        time horaInicio
-        time horaFim
-        string descricao
-        string status
-        int idTicket
+
+    class Cliente {
+        Long id
+        String nome
+        String email
+        String senha
+        Long idEmpresa
     }
-    EMPRESA ||--o{ CLIENTE : "1,N"
-    CLIENTE ||--o{ TICKET : "1,N"
-    CONSULTOR ||--o{ TICKET : "N,N"
-    TICKET ||--|{ TICKET_EXTERNO : "0,1"
-    TICKET ||--o{ ATENDIMENTO : "1,N"
+
+    class Empresa {
+        Long id
+        String nome
+        Integer CNPJ
+    }
+
+    class TicketExterno {
+        Long id
+        String titulo
+        String descricao
+        LocalDate data
+    }
+
+    Cliente "1" -- "N" Ticket : possui
+    Empresa "1" -- "N" Cliente : pertence
+    Ticket "1" -- "0..1" TicketExterno : referencia
+    Ticket "N" -- "N" Atendimento : possui
+    Consultor "N" -- "N" Atendimento : realiza
+```
