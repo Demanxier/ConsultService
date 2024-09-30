@@ -3,6 +3,7 @@ package com.demanxier.cunsultService.entity;
 import com.demanxier.cunsultService.exception.StatusAtendimento;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,8 @@ public class Atendimento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String titulo;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate data;
 
@@ -37,4 +40,7 @@ public class Atendimento {
     @JoinColumn(name = "id_ticket")
     private Ticket ticket;
 
+    @ManyToOne
+    @JoinColumn(name = "id_consultor")
+    private Consultor consultor;
 }

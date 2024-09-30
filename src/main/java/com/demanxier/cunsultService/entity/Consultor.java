@@ -15,7 +15,6 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "tb_consultor")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Consultor {
 
     @Id
@@ -35,5 +34,5 @@ public class Consultor {
 
     @ManyToMany(mappedBy = "consultor")
     @JsonIgnore
-    private List<Ticket> tickets = new ArrayList<>();
+    private List<Atendimento> atendimentos = new ArrayList<>();
 }

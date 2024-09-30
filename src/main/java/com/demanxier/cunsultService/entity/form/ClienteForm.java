@@ -14,4 +14,6 @@ public class ClienteForm {
     private String email;
 
     private String senha;
+
+    private Long id_empresa;
 }

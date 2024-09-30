@@ -11,6 +11,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 @Table(name = "tb_cliente")
 public class Cliente {
 
@@ -29,6 +30,6 @@ public class Cliente {
     @JoinColumn(name = "id_empresa")
     private Empresa empresa;
 
-    @OneToMany(mappedBy = "id_ticket")
+    @OneToMany(mappedBy = "cliente")
     private List<Ticket> tickets = new ArrayList<>();
 }

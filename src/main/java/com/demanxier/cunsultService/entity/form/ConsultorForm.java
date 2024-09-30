@@ -18,4 +18,6 @@ public class ConsultorForm {
     private boolean externo;
 
     private Double custoHora;
+
+    private Long id_atendimento;
 }

@@ -30,10 +30,15 @@ public class Ticket {
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 
-    @ManyToOne
-    @JoinColumn(name = "id_consultor")
-    private Consultor consultor;
+    @ManyToMany
+    @JoinTable(
+            name = "tb_ticket_consultor",
+            joinColumns = @JoinColumn(name = "id_ticket"),
+            inverseJoinColumns = @JoinColumn(name = "id_consultor"))
+    private List<Consultor> consultores = new ArrayList<>();
 
+    // @OneToMany(mappedBy = "id_atendimento") --> Errei ao relacionar errado.
+    //O mappedBy é para indicar a relação um para muitos entre ticket e atendimento
     @OneToMany(mappedBy = "ticket")
     private List<Atendimento> atendimento = new ArrayList<>();
 
