@@ -1,4 +1,4 @@
-package com.demanxier.cunsultService.exception;
+package com.demanxier.cunsultService.entity.enums;
 
 public enum StatusAtendimento {
     AGENDADO,

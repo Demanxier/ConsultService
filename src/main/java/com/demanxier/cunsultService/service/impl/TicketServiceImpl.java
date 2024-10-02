@@ -1,12 +1,11 @@
 package com.demanxier.cunsultService.service.impl;
 
-import com.demanxier.cunsultService.entity.Atendimento;
 import com.demanxier.cunsultService.entity.Cliente;
 import com.demanxier.cunsultService.entity.Ticket;
 import com.demanxier.cunsultService.entity.TicketExterno;
 import com.demanxier.cunsultService.entity.form.TicketForm;
 import com.demanxier.cunsultService.entity.form.TicketUpdateForm;
-import com.demanxier.cunsultService.exception.StatusTicket;
+import com.demanxier.cunsultService.entity.enums.StatusTicket;
 import com.demanxier.cunsultService.repository.AtendimentoRepository;
 import com.demanxier.cunsultService.repository.ClienteRepository;
 import com.demanxier.cunsultService.repository.TicketExternoRepository;

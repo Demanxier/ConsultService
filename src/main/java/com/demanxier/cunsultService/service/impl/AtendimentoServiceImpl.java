@@ -5,7 +5,7 @@ import com.demanxier.cunsultService.entity.Consultor;
 import com.demanxier.cunsultService.entity.Ticket;
 import com.demanxier.cunsultService.entity.form.AtendimentoForm;
 import com.demanxier.cunsultService.entity.form.AtendimentoUpdateForm;
-import com.demanxier.cunsultService.exception.StatusAtendimento;
+import com.demanxier.cunsultService.entity.enums.StatusAtendimento;
 import com.demanxier.cunsultService.repository.AtendimentoRepository;
 import com.demanxier.cunsultService.repository.ConsultorRepository;
 import com.demanxier.cunsultService.repository.TicketRepository;

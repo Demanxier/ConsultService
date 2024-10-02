@@ -1,6 +1,6 @@
 package com.demanxier.cunsultService.entity;
 
-import com.demanxier.cunsultService.exception.StatusAtendimento;
+import com.demanxier.cunsultService.entity.enums.StatusAtendimento;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;

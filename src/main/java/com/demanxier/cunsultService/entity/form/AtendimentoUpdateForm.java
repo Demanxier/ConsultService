@@ -1,6 +1,6 @@
 package com.demanxier.cunsultService.entity.form;
 
-import com.demanxier.cunsultService.exception.StatusAtendimento;
+import com.demanxier.cunsultService.entity.enums.StatusAtendimento;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

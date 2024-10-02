@@ -1,7 +1,6 @@
 package com.demanxier.cunsultService.entity.form;
 
-import com.demanxier.cunsultService.entity.Cliente;
-import com.demanxier.cunsultService.exception.StatusAtendimento;
+import com.demanxier.cunsultService.entity.enums.StatusAtendimento;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
