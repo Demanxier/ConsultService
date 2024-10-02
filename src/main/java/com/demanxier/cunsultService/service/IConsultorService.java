@@ -3,6 +3,7 @@ package com.demanxier.cunsultService.service;
 
 import com.demanxier.cunsultService.entity.Consultor;
 import com.demanxier.cunsultService.entity.form.ConsultorForm;
+import com.demanxier.cunsultService.entity.form.ConsultorUpdateForm;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface IConsultorService {
 
     List<Consultor> getAll();
 
-    Consultor update(Long id, ConsultorForm form);
+    Consultor update(Long id, ConsultorUpdateForm updateForm);
 
     void delete(Long id);
 }

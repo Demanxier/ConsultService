@@ -2,6 +2,7 @@ package com.demanxier.cunsultService.service;
 
 import com.demanxier.cunsultService.entity.Cliente;
 import com.demanxier.cunsultService.entity.form.ClienteForm;
+import com.demanxier.cunsultService.entity.form.ClienteUpdateForm;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface IClienteService {
 
     List<Cliente> getAll();
 
-    Cliente update(Long id, Cliente form);
+    Cliente update(Long id, ClienteUpdateForm updateForm);
 
     void delete(long id);
 }

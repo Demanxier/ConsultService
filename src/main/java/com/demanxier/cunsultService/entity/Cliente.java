@@ -1,5 +1,7 @@
 package com.demanxier.cunsultService.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,8 +28,9 @@ public class Cliente {
 
     private String senha;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_empresa")
+    @JsonBackReference //Impede a serialização recursiva entre Cliente e Empresa
     private Empresa empresa;
 
     @OneToMany(mappedBy = "cliente")

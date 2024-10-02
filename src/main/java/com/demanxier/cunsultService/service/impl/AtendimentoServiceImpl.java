@@ -61,12 +61,20 @@ public class AtendimentoServiceImpl implements IAtendimentoService {
 
     @Override
     public Atendimento update(Long id, AtendimentoUpdateForm formUpdate) {
-        return null;
+        Atendimento atendimento = atendimentoRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Atendimento não encontrado."));
+
+        atendimento.setTitulo(formUpdate.getTitulo());
+        atendimento.setDescricao(formUpdate.getDescricao());
+        return atendimentoRepository.save(atendimento);
     }
 
     @Override
     public void delete(Long id) {
+        Atendimento atendimento = atendimentoRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Atendimento não encontrado."));
 
+        atendimentoRepository.delete(atendimento);
     }
 
     @Override
@@ -77,5 +85,32 @@ public class AtendimentoServiceImpl implements IAtendimentoService {
     @Override
     public List<Consultor> getAllConsultor(String nome) {
         return List.of();
+    }
+
+    @Override
+    public Atendimento updateStatuEmAtendimento(Long id, AtendimentoUpdateForm updateForm) {
+        Atendimento atendimento = atendimentoRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Atendimento não encontrado."));
+
+        atendimento.setStatus(StatusAtendimento.EM_ATENDIMENTO);
+        return atendimentoRepository.save(atendimento);
+    }
+
+    @Override
+    public Atendimento updateStatuCancelado(Long id, AtendimentoUpdateForm updateForm) {
+        Atendimento atendimento = atendimentoRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Atendimento não encontrado."));
+
+        atendimento.setStatus(StatusAtendimento.CANCELADO);
+        return atendimentoRepository.save(atendimento);
+    }
+
+    @Override
+    public Atendimento updateStatusConcluido(Long id, AtendimentoUpdateForm updateForm) {
+        Atendimento atendimento = atendimentoRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Atendimento não encontrado."));
+
+        atendimento.setStatus(StatusAtendimento.CONCLUIDO);
+        return atendimentoRepository.save(atendimento);
     }
 }

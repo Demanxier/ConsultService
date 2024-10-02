@@ -29,4 +29,10 @@ public interface IAtendimentoService {
     List<Ticket> getAllTicket(LocalDate data);
 
     List<Consultor> getAllConsultor (String nome);
+
+    Atendimento updateStatuEmAtendimento(Long id, AtendimentoUpdateForm updateForm);
+
+    Atendimento updateStatuCancelado(Long id, AtendimentoUpdateForm updateForm);
+
+    Atendimento updateStatusConcluido(Long id, AtendimentoUpdateForm updateForm);
 }

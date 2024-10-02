@@ -1,5 +1,7 @@
 package com.demanxier.cunsultService.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +26,7 @@ public class Empresa {
     @Column(unique = true)
     private String cnpj;
 
-    @OneToMany(mappedBy = "empresa")
+    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference //Define que a serialização deve começar a partir deste ponto
     private List<Cliente> clientes = new ArrayList<>();
 }

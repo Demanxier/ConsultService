@@ -18,6 +18,8 @@ public class TicketForm {
     @Size(min = 5, max = 30, message = "'${validatedValue}' precisa estar entre {min} e {max} caracteres.")
     private String titulo;
 
+    @NotBlank(message = "Preencha o campo corretamente.")
+    @Size(min = 5, max = 100, message = "'${validatedValue}' precisa estar entre {min} e {max} caracteres.")
     private String descricao;
 
     private StatusTicket status;

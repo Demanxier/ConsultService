@@ -66,11 +66,23 @@ public class TicketServiceImpl implements ITicketService {
 
     @Override
     public Ticket update(Long id, TicketUpdateForm updateForm) {
-        return null;
+        Ticket ticket = ticketRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Ticket não encontrado"));
+
+        TicketExterno ticketExterno = ticketExternoRepository.findById(updateForm.getId_TicketExterno())
+                .orElseThrow(() -> new RuntimeException("Ticket externo não encontrado"));
+
+        ticket.setTitulo(updateForm.getDescricao());
+        ticket.setStatus(updateForm.getStatus());
+        ticket.setTicketExterno(ticketExterno);
+        return ticketRepository.save(ticket);
     }
 
     @Override
     public void delete(Long id) {
+        Ticket ticket = ticketRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Ticket não encontrado"));
 
+        ticketRepository.delete(ticket);
     }
 }

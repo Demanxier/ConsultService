@@ -3,6 +3,7 @@ package com.demanxier.cunsultService.service.impl;
 import com.demanxier.cunsultService.entity.Cliente;
 import com.demanxier.cunsultService.entity.Empresa;
 import com.demanxier.cunsultService.entity.form.ClienteForm;
+import com.demanxier.cunsultService.entity.form.ClienteUpdateForm;
 import com.demanxier.cunsultService.repository.ClienteRepository;
 import com.demanxier.cunsultService.repository.EmpresaRepository;
 import com.demanxier.cunsultService.service.IClienteService;
@@ -30,7 +31,7 @@ public class ClienteServiceImpl implements IClienteService {
         cliente.setEmail(form.getEmail());
         cliente.setSenha(form.getSenha());
 
-        empresa.setNome(empresa.getNome());
+        cliente.setEmpresa(empresa);
 
         return clienteRepository.save(cliente);
     }
@@ -46,12 +47,19 @@ public class ClienteServiceImpl implements IClienteService {
     }
 
     @Override
-    public Cliente update(Long id, Cliente form) {
-        return null;
+    public Cliente update(Long id, ClienteUpdateForm updateForm) {
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado."));
+
+        cliente.setSenha(updateForm.getSenha());
+        return clienteRepository.save(cliente);
     }
 
     @Override
     public void delete(long id) {
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Cliente não encontrado"));
 
+        clienteRepository.delete(cliente);
     }
 }

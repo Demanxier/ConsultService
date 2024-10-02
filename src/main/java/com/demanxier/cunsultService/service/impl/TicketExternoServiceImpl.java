@@ -15,6 +15,7 @@ public class TicketExternoServiceImpl implements ITicketExternoService {
     @Autowired
     private TicketExternoRepository ticketExternoRepository;
 
+
     @Override
     public TicketExterno create(TicketExternoForm form) {
 
@@ -23,6 +24,7 @@ public class TicketExternoServiceImpl implements ITicketExternoService {
         ticketExterno.setDescricao(form.getDescricao());
         return ticketExternoRepository.save(ticketExterno);
     }
+
 
     @Override
     public TicketExterno get(Long id) {
@@ -36,11 +38,20 @@ public class TicketExternoServiceImpl implements ITicketExternoService {
 
     @Override
     public TicketExterno update(Long id, TicketExternoForm form) {
-        return null;
+        TicketExterno ticketExterno = ticketExternoRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Ticket Externo não encontrado."));
+
+        ticketExterno.setTitulo(form.getTitulo());
+        ticketExterno.setDescricao(form.getDescricao());
+        return ticketExternoRepository.save(ticketExterno);
     }
 
     @Override
     public void delete(Long id) {
+        TicketExterno ticketExterno = ticketExternoRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Ticket Externo não encontrado."));
+
+        ticketExternoRepository.delete(ticketExterno);
 
     }
 }
