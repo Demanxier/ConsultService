@@ -39,6 +39,7 @@ public class AtendimentoServiceImpl implements IAtendimentoService {
         Atendimento atendimento = new Atendimento();
         atendimento.setTitulo(form.getTitulo());
         atendimento.setData(form.getData());
+        atendimento.setDescricao(form.getDescricao());
         atendimento.setHoraInicio(form.getHoraInicio());
         atendimento.setHoraFim(form.getHoraFim());
         atendimento.setStatus(StatusAtendimento.AGENDADO);

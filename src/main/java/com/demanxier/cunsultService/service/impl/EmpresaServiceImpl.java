@@ -31,7 +31,7 @@ public class EmpresaServiceImpl implements IEmpresaService {
 
     @Override
     public List<Empresa> getAll() {
-        return List.of();
+        return empresaRepository.findAll();
     }
 
     @Override

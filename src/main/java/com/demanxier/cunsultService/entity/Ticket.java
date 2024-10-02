@@ -1,6 +1,8 @@
 package com.demanxier.cunsultService.entity;
 
 import com.demanxier.cunsultService.exception.StatusTicket;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,18 +30,13 @@ public class Ticket {
 
     @ManyToOne
     @JoinColumn(name = "id_cliente")
+    @JsonBackReference //Impede a serialização recursiva entre Cliente e Ticket
     private Cliente cliente;
-
-    @ManyToMany
-    @JoinTable(
-            name = "tb_ticket_consultor",
-            joinColumns = @JoinColumn(name = "id_ticket"),
-            inverseJoinColumns = @JoinColumn(name = "id_consultor"))
-    private List<Consultor> consultores = new ArrayList<>();
 
     // @OneToMany(mappedBy = "id_atendimento") --> Errei ao relacionar errado.
     //O mappedBy é para indicar a relação um para muitos entre ticket e atendimento
     @OneToMany(mappedBy = "ticket")
+    @JsonManagedReference //Define que a serialização deve começar a partir deste ponto
     private List<Atendimento> atendimento = new ArrayList<>();
 
     @OneToOne

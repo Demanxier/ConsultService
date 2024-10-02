@@ -37,9 +37,6 @@ public class TicketServiceImpl implements ITicketService {
         Cliente cliente = clienteRepository.findById(form.getId_cliente())
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado."));
 
-        Atendimento atendimento = atendimentoRepository.findById(form.getId_atendimento())
-                .orElseThrow(() -> new RuntimeException("Atendimento não encontrado."));
-
         TicketExterno ticketExterno = ticketExternoRepository.findById(form.getId_TicketExterno())
                 .orElseThrow(() -> new RuntimeException("Ticket externo não encontrado"));
 
