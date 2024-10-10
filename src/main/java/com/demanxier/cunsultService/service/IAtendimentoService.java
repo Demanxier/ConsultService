@@ -3,7 +3,9 @@ package com.demanxier.cunsultService.service;
 import com.demanxier.cunsultService.entity.Atendimento;
 import com.demanxier.cunsultService.entity.Consultor;
 import com.demanxier.cunsultService.entity.Ticket;
+import com.demanxier.cunsultService.entity.enums.StatusAtendimento;
 import com.demanxier.cunsultService.entity.form.AtendimentoForm;
+import com.demanxier.cunsultService.entity.form.AtendimentoReagendarForm;
 import com.demanxier.cunsultService.entity.form.AtendimentoUpdateForm;
 
 import java.time.LocalDate;
@@ -30,9 +32,17 @@ public interface IAtendimentoService {
 
     List<Consultor> getAllConsultor (String nome);
 
-    Atendimento updateStatuEmAtendimento(Long id, AtendimentoUpdateForm updateForm);
+    Atendimento updateStatusEmAtendimento(Long id, AtendimentoUpdateForm updateForm);
 
     Atendimento updateStatuCancelado(Long id, AtendimentoUpdateForm updateForm);
 
     Atendimento updateStatusConcluido(Long id, AtendimentoUpdateForm updateForm);
+
+    List<Atendimento> search(String titulo, LocalDate startDate, LocalDate endDate);
+
+    Atendimento reagendar(Long id, AtendimentoReagendarForm reagendarForm);
+
+    List<Atendimento> searchAtender(String titulo, LocalDate startDate, LocalDate endDate);
+
+
 }

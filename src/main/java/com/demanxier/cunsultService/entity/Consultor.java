@@ -34,7 +34,7 @@ public class Consultor {
 
     private Double custoHora;
 
-    @ManyToMany(mappedBy = "consultor")
-    @JsonManagedReference //Define que a serialização deve começar a partir deste ponto
+    @ManyToMany(mappedBy = "consultor", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"consultor"})
     private List<Atendimento> atendimentos = new ArrayList<>();
 }

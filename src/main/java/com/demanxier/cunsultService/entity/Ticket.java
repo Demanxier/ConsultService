@@ -2,6 +2,7 @@ package com.demanxier.cunsultService.entity;
 
 import com.demanxier.cunsultService.entity.enums.StatusTicket;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -35,8 +36,8 @@ public class Ticket {
 
     // @OneToMany(mappedBy = "id_atendimento") --> Errei ao relacionar errado.
     //O mappedBy é para indicar a relação um para muitos entre ticket e atendimento
-    @OneToMany(mappedBy = "ticket")
-    @JsonManagedReference //Define que a serialização deve começar a partir deste ponto
+    @OneToMany(mappedBy = "ticket", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"ticket"}) //Evita ciclos
     private List<Atendimento> atendimento = new ArrayList<>();
 
     @OneToOne

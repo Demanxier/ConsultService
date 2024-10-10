@@ -3,12 +3,16 @@ package com.demanxier.cunsultService.controller;
 
 import com.demanxier.cunsultService.entity.Atendimento;
 import com.demanxier.cunsultService.entity.form.AtendimentoForm;
+import com.demanxier.cunsultService.entity.form.AtendimentoReagendarForm;
 import com.demanxier.cunsultService.entity.form.AtendimentoUpdateForm;
 import com.demanxier.cunsultService.service.impl.AtendimentoServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -34,26 +38,75 @@ public class AtendimentoController {
         return atendimentoService.get(id);
     }
 
-
     @PutMapping("/{id}")
     public Atendimento update(@PathVariable Long id, @Valid @RequestBody AtendimentoUpdateForm updateForm){
         return atendimentoService.update(id, updateForm);
     }
-    @PutMapping("/{id}/em-atendimento")
-    public Atendimento updateStatuEmAtendimento(@PathVariable Long id, @Valid @RequestBody AtendimentoUpdateForm updateForm){
-        return atendimentoService.update(id, updateForm);
+    @PostMapping("/{id}/iniciar")
+    public ResponseEntity<Atendimento> iniciarAtendimento(@PathVariable Long id) {
+        try{
+            Atendimento atendimento = atendimentoService.updateStatusEmAtendimento(id, null);
+            return ResponseEntity.ok(atendimento);
+        } catch (RuntimeException e){
+            return ResponseEntity.badRequest().build();
+        }
     }
-    @PutMapping("/{id}/cancelar")
-    public Atendimento updateStatuCancelado(@PathVariable Long id, @Valid @RequestBody AtendimentoUpdateForm updateForm){
-        return atendimentoService.update(id, updateForm);
+
+    @PostMapping("/{id}/reagendar")
+    public ResponseEntity<Atendimento> reagendarAtendimento(@PathVariable Long id, @RequestBody AtendimentoReagendarForm reagendarForm){
+        try {
+            Atendimento atendimento = atendimentoService.reagendar(id, reagendarForm);
+            return ResponseEntity.ok(atendimento);
+        } catch (RuntimeException  e){
+            return ResponseEntity.badRequest().build();
+        }
     }
-    @PutMapping("/{id}/concluir")
-    public Atendimento updateStatusConcluido(@PathVariable Long id, @Valid @RequestBody AtendimentoUpdateForm updateForm){
-        return atendimentoService.update(id, updateForm);
+
+    @PostMapping("/{id}/cancelar")
+    public ResponseEntity<Atendimento> cancelarAtendimento(@PathVariable Long id, @RequestBody AtendimentoUpdateForm updateForm){
+        try {
+            Atendimento atendimento = atendimentoService.updateStatuCancelado(id, updateForm);
+            return ResponseEntity.ok(atendimento);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PostMapping("/{id}/concluir")
+    public ResponseEntity<Atendimento> concluirAtendimento(@PathVariable Long id, @RequestBody AtendimentoUpdateForm updateForm){
+        try {
+            Atendimento atendimento =  atendimentoService.updateStatusConcluido(id, updateForm);
+            return ResponseEntity.ok(atendimento);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id){
         atendimentoService.delete(id);
     }
+
+    @GetMapping("/buscar")
+    public List<Atendimento> searchAtendimentos(
+            @RequestParam(required = false) String titulo,
+            @RequestParam(required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate startDate,
+            @RequestParam(required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate
+            ) {
+        return atendimentoService.search(titulo, startDate, endDate);
+    }
+
+    @GetMapping("/atender")
+    public List<Atendimento> searchAtender(
+            @RequestParam(required = false) String titulo,
+            @RequestParam(required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate startDate,
+            @RequestParam(required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate
+    ) {
+        return atendimentoService.searchAtender(titulo, startDate, endDate);
+    }
+
 }

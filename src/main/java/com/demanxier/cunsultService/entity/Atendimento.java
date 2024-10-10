@@ -3,6 +3,7 @@ package com.demanxier.cunsultService.entity;
 import com.demanxier.cunsultService.entity.enums.StatusAtendimento;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -40,13 +41,13 @@ public class Atendimento {
     @Enumerated(EnumType.STRING)
     private StatusAtendimento status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_ticket")
-    @JsonBackReference //Impede a serialização recursiva entre Atendimento e Ticket
+    @JsonIgnoreProperties({"atendimento"}) // Ignora a lista ded atendimentos no ticket para evitar coclos
     private Ticket ticket;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_consultor")
-    @JsonBackReference //Impede a serialização recursiva entre Atendimento e Consultor
+    @JsonIgnoreProperties({"atendimentos"})
     private Consultor consultor;
 }
