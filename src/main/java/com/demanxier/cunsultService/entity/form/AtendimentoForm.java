@@ -16,7 +16,7 @@ import java.time.LocalTime;
 public class AtendimentoForm {
 
     @NotBlank(message = "Preencha o campo corretamente.")
-    @Size(min = 5, max = 30, message = "'${validatedValue}' precisa estar entre ${min} e ${max} caracteres.")
+    @Size(min = 5, max = 100, message = "'${validatedValue}' precisa estar entre ${min} e ${max} caracteres.")
     private String titulo;
 
     private LocalDate data;
@@ -25,12 +25,14 @@ public class AtendimentoForm {
 
     private LocalTime horaFim;
 
+    @NotBlank(message = "Preencha o campo corretamente.")
+    @Size(min = 5, max = 5000, message = "'${validatedValue}' precisa estar entre {min} e {max} caracteres.")
     private String descricao;
 
     private StatusAtendimento status;
 
     private Long id_consultor;
 
-    private Long id_ticket;
+    private Long id_tarefa;
 
 }

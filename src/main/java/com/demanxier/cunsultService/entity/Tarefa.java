@@ -1,14 +1,15 @@
 package com.demanxier.cunsultService.entity;
 
-import com.demanxier.cunsultService.entity.enums.StatusTicket;
+import com.demanxier.cunsultService.entity.enums.StatusTarefa;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +17,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tb_ticket")
-public class Ticket {
+@Table(name = "tb_tarefa")
+public class Tarefa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,20 +28,26 @@ public class Ticket {
 
     private String descricao;
 
-    private StatusTicket status;
+    @Enumerated(EnumType.STRING)
+    private StatusTarefa status;
 
-    @ManyToOne
-    @JoinColumn(name = "id_cliente")
+    private LocalDate vencimento;
+
+    private LocalDateTime dataConcluido;
+
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "id_cliente", nullable = true)
     @JsonBackReference //Impede a serialização recursiva entre Cliente e Ticket
     private Cliente cliente;
 
+    @OneToMany(mappedBy = "tarefa", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties({"tarefa"})
+    private List<CardTarefa> cards = new ArrayList<>();
+
     // @OneToMany(mappedBy = "id_atendimento") --> Errei ao relacionar errado.
     //O mappedBy é para indicar a relação um para muitos entre ticket e atendimento
-    @OneToMany(mappedBy = "ticket", fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"ticket"}) //Evita ciclos
+    @OneToMany(mappedBy = "tarefa", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties({"tarefa"}) //Evita ciclos
     private List<Atendimento> atendimento = new ArrayList<>();
 
-    @OneToOne
-    @JoinColumn(name = "id_ticketExterno")
-    private TicketExterno ticketExterno;
 }

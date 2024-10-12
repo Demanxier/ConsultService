@@ -1,9 +1,9 @@
 package com.demanxier.cunsultService.controller;
 
-import com.demanxier.cunsultService.entity.Ticket;
-import com.demanxier.cunsultService.entity.form.TicketForm;
-import com.demanxier.cunsultService.entity.form.TicketUpdateForm;
-import com.demanxier.cunsultService.service.impl.TicketServiceImpl;
+import com.demanxier.cunsultService.entity.Tarefa;
+import com.demanxier.cunsultService.entity.form.TarefaForm;
+import com.demanxier.cunsultService.entity.form.TarefaUpdateForm;
+import com.demanxier.cunsultService.service.impl.TarefaServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,30 +11,30 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/ticket")
+@RequestMapping("/v1/tarefa")
 @CrossOrigin(origins = "http://localhost:3000")
-public class TicketController {
+public class TarefaController {
 
     @Autowired
-    private TicketServiceImpl ticketService;
+    private TarefaServiceImpl ticketService;
 
     @PostMapping
-    public Ticket create(@Valid @RequestBody TicketForm form){
+    public Tarefa create(@Valid @RequestBody TarefaForm form){
         return ticketService.create(form);
     }
 
     @GetMapping
-    public List<Ticket> getAll(){
+    public List<Tarefa> getAll(){
         return ticketService.getAll();
     }
 
     @GetMapping("/{id}")
-    public Ticket get(@PathVariable Long id){
+    public Tarefa get(@PathVariable Long id){
         return ticketService.get(id);
     }
 
     @PutMapping("/{id}")
-    public Ticket update(@PathVariable Long id, @Valid @RequestBody TicketUpdateForm updateForm){
+    public Tarefa update(@PathVariable Long id, @Valid @RequestBody TarefaUpdateForm updateForm){
         return ticketService.update(id, updateForm);
     }
 

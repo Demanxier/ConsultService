@@ -2,8 +2,7 @@ package com.demanxier.cunsultService.service;
 
 import com.demanxier.cunsultService.entity.Atendimento;
 import com.demanxier.cunsultService.entity.Consultor;
-import com.demanxier.cunsultService.entity.Ticket;
-import com.demanxier.cunsultService.entity.enums.StatusAtendimento;
+import com.demanxier.cunsultService.entity.Tarefa;
 import com.demanxier.cunsultService.entity.form.AtendimentoForm;
 import com.demanxier.cunsultService.entity.form.AtendimentoReagendarForm;
 import com.demanxier.cunsultService.entity.form.AtendimentoUpdateForm;
@@ -28,7 +27,7 @@ public interface IAtendimentoService {
 
     void delete(Long id);
 
-    List<Ticket> getAllTicket(LocalDate data);
+    List<Tarefa> getAllTicket(LocalDate data);
 
     List<Consultor> getAllConsultor (String nome);
 

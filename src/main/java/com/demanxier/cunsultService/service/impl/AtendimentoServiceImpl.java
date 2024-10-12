@@ -2,18 +2,16 @@ package com.demanxier.cunsultService.service.impl;
 
 import com.demanxier.cunsultService.entity.Atendimento;
 import com.demanxier.cunsultService.entity.Consultor;
-import com.demanxier.cunsultService.entity.Ticket;
+import com.demanxier.cunsultService.entity.Tarefa;
 import com.demanxier.cunsultService.entity.form.AtendimentoForm;
 import com.demanxier.cunsultService.entity.form.AtendimentoReagendarForm;
 import com.demanxier.cunsultService.entity.form.AtendimentoUpdateForm;
 import com.demanxier.cunsultService.entity.enums.StatusAtendimento;
 import com.demanxier.cunsultService.repository.AtendimentoRepository;
 import com.demanxier.cunsultService.repository.ConsultorRepository;
-import com.demanxier.cunsultService.repository.TicketRepository;
+import com.demanxier.cunsultService.repository.TarefaRepository;
 import com.demanxier.cunsultService.service.IAtendimentoService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,14 +26,14 @@ public class AtendimentoServiceImpl implements IAtendimentoService {
     private AtendimentoRepository atendimentoRepository;
 
     @Autowired
-    private TicketRepository ticketRepository;
+    private TarefaRepository tarefaRepository;
 
     @Autowired
     private ConsultorRepository consultorRepository;
 
     @Override
     public Atendimento create(AtendimentoForm form) {
-        Ticket ticket = ticketRepository.findById(form.getId_ticket())
+        Tarefa tarefa = tarefaRepository.findById(form.getId_tarefa())
                 .orElseThrow(() -> new RuntimeException("Ticket não encontrado."));
 
         Consultor consultor = consultorRepository.findById(form.getId_consultor())
@@ -49,7 +47,7 @@ public class AtendimentoServiceImpl implements IAtendimentoService {
         atendimento.setHoraFim(form.getHoraFim());
         atendimento.setStatus(StatusAtendimento.AGENDADO);
 
-        atendimento.setTicket(ticket);
+        atendimento.setTarefa(tarefa);
         atendimento.setConsultor(consultor);
 
         return atendimentoRepository.save(atendimento);
@@ -84,7 +82,7 @@ public class AtendimentoServiceImpl implements IAtendimentoService {
     }
 
     @Override
-    public List<Ticket> getAllTicket(LocalDate data) {
+    public List<Tarefa> getAllTicket(LocalDate data) {
         return List.of();
     }
 

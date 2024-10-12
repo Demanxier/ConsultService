@@ -1,7 +1,6 @@
 package com.demanxier.cunsultService.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -36,5 +35,5 @@ public class Cliente {
 
     @OneToMany(mappedBy = "cliente")
     @JsonManagedReference //Define que a serialização deve começar a partir deste ponto
-    private List<Ticket> tickets = new ArrayList<>();
+    private List<Tarefa> tarefas = new ArrayList<>();
 }
