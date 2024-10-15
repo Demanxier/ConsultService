@@ -8,18 +8,27 @@ classDiagram
         LocalTime horaFim
         String descricao
         StatusAtendimento status
-        Long idTicket
-        Long idConsultor
+        Tarefa tarefa
+        Consultor consultor
+        TicketExterno ticketExterno
     }
 
-    class Ticket {
+    class CardTarefa {
         Long id
-        String titulo
-        String descricao
-        StatusTicket status
-        Long idCliente
-        Long idAgendamento
-        Long idTicketExterno
+        String conteudo
+        LocalDateTime criadoEm
+        LocalDateTime atualzadoEm
+        Tarefa tarefa
+    }
+
+    class Cliente {
+        Long id
+        String nome
+        String email
+        String senha
+        Empresa empresa
+        List~Tarefa~ tarefas
+        List~TicketExterno~ ticketExternos
     }
 
     class Consultor {
@@ -29,33 +38,51 @@ classDiagram
         String senha
         boolean externo
         Double custoHora
-        Long idAtendimento
-    }
-
-    class Cliente {
-        Long id
-        String nome
-        String email
-        String senha
-        Long idEmpresa
+        List~Atendimento~ atendimentos
     }
 
     class Empresa {
         Long id
         String nome
-        Integer CNPJ
+        String cnpj
+        List~Cliente~ clientes
+    }
+
+    class Tarefa {
+        Long id
+        String titulo
+        String descricao
+        StatusTarefa status
+        LocalDate vencimento
+        LocalDateTime dataConcluido
+        Cliente cliente
+        List~CardTarefa~ cards
+        List~Atendimento~ atendimento
     }
 
     class TicketExterno {
         Long id
         String titulo
         String descricao
-        LocalDate data
+        LocalDate dataAbertura
+        LocalDate dataFechamento
+        StatusTicket status
+        Cliente cliente
+        List~Atendimento~ atendimentos
     }
 
-    Cliente "1" -- "N" Ticket : possui
-    Empresa "1" -- "N" Cliente : pertence
-    Ticket "1" -- "0..1" TicketExterno : referencia
-    Ticket "N" -- "N" Atendimento : possui
-    Consultor "N" -- "N" Atendimento : realiza
+    Atendimento --> Tarefa : ManyToOne
+    Atendimento --> Consultor : ManyToOne
+    Atendimento --> TicketExterno : ManyToOne
+    CardTarefa --> Tarefa : ManyToOne
+    Cliente --> Empresa : ManyToOne
+    Cliente --> Tarefa : OneToMany
+    Cliente --> TicketExterno : OneToMany
+    Consultor --> Atendimento : OneToMany
+    Empresa --> Cliente : OneToMany
+    Tarefa --> Cliente : ManyToOne
+    Tarefa --> CardTarefa : OneToMany
+    Tarefa --> Atendimento : OneToMany
+    TicketExterno --> Cliente : ManyToOne
+    TicketExterno --> Atendimento : OneToMany
 ```
