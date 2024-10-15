@@ -5,6 +5,7 @@ import com.demanxier.cunsultService.entity.Tarefa;
 import com.demanxier.cunsultService.entity.enums.StatusTarefa;
 import com.demanxier.cunsultService.entity.form.TarefaForm;
 import com.demanxier.cunsultService.entity.form.TarefaUpdateForm;
+import com.demanxier.cunsultService.entity.form.TarefaUpdateStatusForm;
 import com.demanxier.cunsultService.repository.AtendimentoRepository;
 import com.demanxier.cunsultService.repository.ClienteRepository;
 import com.demanxier.cunsultService.repository.TarefaRepository;
@@ -117,16 +118,18 @@ public class TarefaServiceImpl implements ITarefaService {
     }
 
     @Override
-    public Tarefa atualizarStatus(Long id, StatusTarefa novoStatus) {
+    public Tarefa atualizarStatus(Long id, TarefaUpdateStatusForm statusForm) {
         Tarefa tarefa = tarefaRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("Tarefa não encontrada."));
-        tarefa.setStatus(novoStatus);
 
-        if (novoStatus == StatusTarefa.CONCLUIDO){
+        tarefa.setStatus(statusForm.getStatus());
+
+        if(statusForm.getStatus() == StatusTarefa.CONCLUIDO){
             tarefa.setDataConcluido(LocalDateTime.now());
         }else {
             tarefa.setDataConcluido(null);
         }
+
         return tarefaRepository.save(tarefa);
     }
 

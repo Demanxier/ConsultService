@@ -1,7 +1,6 @@
 package com.demanxier.cunsultService.entity.form;
 
 import com.demanxier.cunsultService.entity.enums.StatusTarefa;
-import com.demanxier.cunsultService.entity.enums.StatusTicket;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;

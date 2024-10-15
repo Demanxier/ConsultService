@@ -17,4 +17,7 @@ public interface ITicketExternoService {
     TicketExterno update(Long id, TicketExternoForm form);
 
     void delete(Long id);
+
+    List<TicketExterno> listarTicketsSemAtendimentos();
+    List<TicketExterno> listarTicketsComAtendimentos();
 }

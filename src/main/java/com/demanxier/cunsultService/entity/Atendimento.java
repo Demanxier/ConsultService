@@ -49,4 +49,9 @@ public class Atendimento {
     @JoinColumn(name = "id_consultor")
     @JsonIgnoreProperties({"atendimentos"})
     private Consultor consultor;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_ticket_externo")
+    @JsonIgnoreProperties("atendimentos")
+    private TicketExterno ticketExterno;
 }

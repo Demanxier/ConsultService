@@ -3,6 +3,7 @@ package com.demanxier.cunsultService.controller;
 import com.demanxier.cunsultService.entity.Tarefa;
 import com.demanxier.cunsultService.entity.form.TarefaForm;
 import com.demanxier.cunsultService.entity.form.TarefaUpdateForm;
+import com.demanxier.cunsultService.entity.form.TarefaUpdateStatusForm;
 import com.demanxier.cunsultService.service.impl.TarefaServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,30 +17,35 @@ import java.util.List;
 public class TarefaController {
 
     @Autowired
-    private TarefaServiceImpl ticketService;
+    private TarefaServiceImpl tarefaService;
 
     @PostMapping
     public Tarefa create(@Valid @RequestBody TarefaForm form){
-        return ticketService.create(form);
+        return tarefaService.create(form);
     }
 
     @GetMapping
     public List<Tarefa> getAll(){
-        return ticketService.getAll();
+        return tarefaService.getAll();
     }
 
     @GetMapping("/{id}")
     public Tarefa get(@PathVariable Long id){
-        return ticketService.get(id);
+        return tarefaService.get(id);
     }
 
     @PutMapping("/{id}")
     public Tarefa update(@PathVariable Long id, @Valid @RequestBody TarefaUpdateForm updateForm){
-        return ticketService.update(id, updateForm);
+        return tarefaService.update(id, updateForm);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id){
-        ticketService.delete(id);
+        tarefaService.delete(id);
+    }
+
+    @PutMapping("/{id}/status")
+    public Tarefa atualizarStatus(@PathVariable Long id, @Valid @RequestBody TarefaUpdateStatusForm statusForm){
+        return tarefaService.atualizarStatus(id, statusForm);
     }
 }

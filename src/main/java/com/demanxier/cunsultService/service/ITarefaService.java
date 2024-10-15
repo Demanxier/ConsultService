@@ -5,6 +5,7 @@ import com.demanxier.cunsultService.entity.Tarefa;
 import com.demanxier.cunsultService.entity.enums.StatusTarefa;
 import com.demanxier.cunsultService.entity.form.TarefaForm;
 import com.demanxier.cunsultService.entity.form.TarefaUpdateForm;
+import com.demanxier.cunsultService.entity.form.TarefaUpdateStatusForm;
 
 import java.util.List;
 
@@ -28,5 +29,7 @@ public interface ITarefaService {
 
     Tarefa statusConcluido(Long id, TarefaUpdateForm updateForm);
 
-    Tarefa atualizarStatus(Long id, StatusTarefa novoStatus);
+    Tarefa atualizarStatus(Long id, TarefaUpdateStatusForm statusForm);
+
+
 }

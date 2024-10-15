@@ -41,4 +41,14 @@ public class TicketExternoController {
     public void delete(@PathVariable Long id){
         ticketExternoService.delete(id);
     }
+
+    @GetMapping("/semAtendimentos")
+    public List<TicketExterno> ticketsSemAtendimento(){
+        return ticketExternoService.listarTicketsSemAtendimentos();
+    }
+
+    @GetMapping("/comAtendimentos")
+    public List<TicketExterno> ticketsComAtendimentos(){
+        return ticketExternoService.listarTicketsComAtendimentos();
+    }
 }
